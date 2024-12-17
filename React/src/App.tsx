@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useQueryClient } from 'react-query';
+import CardArticle from './components/CardArticle';
+import NewArticleToast from './components/NewArticleToast';
+import { useGetArticles } from './services/articles.service';
+import { Article } from './types/article.type';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const queryClient = useQueryClient();
+  const { isLoading, isError, isSuccess, data } = useGetArticles();
+
+  const handleToastClick = () => {
+    queryClient.invalidateQueries({ queryKey: ['articles'] });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const sortedByDate = (a: Article, b: Article) =>
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <main>
+      <h1>GOOFY NEWS</h1>
+      <section className='p-4'>
+        <NewArticleToast onClick={handleToastClick} />
+        {isLoading && <p>Loading...</p>}
+        {isError && <p>Error</p>}
+        {isSuccess && (
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+            {data.sort(sortedByDate).map((article, index) => (
+              <CardArticle
+                key={'article-' + article.author + index}
+                article={article}
+              />
+            ))}
+          </div>
+        )}
+      </section>
+    </main>
+  );
 }
 
-export default App
+export default App;
