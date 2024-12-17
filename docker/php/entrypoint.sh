@@ -90,6 +90,16 @@ if [ -f /var/www/html/artisan ]; then
     user=$USER_NAME
     redirect_stderr=true
     stdout_logfile=/var/www/html/storage/logs/laravel_horizon.log
+    
+    [program:Laravel-reverb]
+    process_name=%(program_name)s_%(process_num)02d
+    command=php /var/www/html/artisan reverb:start --verbose --no-interaction --host=0.0.0.0 --port=8080
+    autostart=true
+    autorestart=true
+    numprocs=1
+    user=$USER_NAME
+    redirect_stderr=true
+    stdout_logfile=/var/www/html/storage/logs/laravel_reverb.log
 
 EOF
     info "Laravel supervisor config created"
