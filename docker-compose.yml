@@ -59,13 +59,12 @@ services:
     react:
         container_name: "react-app"
         build:
-            context: ./React
-            dockerfile: ../docker/js/Dockerfile
+            context: ./docker/js
+            dockerfile: Dockerfile
         ports:
             - "5173:5173"
         volumes:
             - ./React/:/app
-            - /app/node_modules
         depends_on:
             - mariadb
         networks:

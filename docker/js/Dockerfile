@@ -1,19 +1,21 @@
-# node 18 react npm install et npm run dev
+# Utilise Node.js 18 comme image de base
 FROM node:18
 
-# Create app directory
+# Définit le répertoire de travail
 WORKDIR /app
 
-# Install app dependencies
+# Copie le fichier package.json pour installer les dépendances
+RUN chmod -R 777 /app
 
-COPY package.json ./
+# Copie l'entrypoint
+COPY entrypoint.sh /entrypoint.sh
 
-RUN npm install
+# Rend l'entrypoint exécutable
+RUN chmod +x /entrypoint.sh
 
-# Bundle app source
-
-COPY . .
-
+# Expose le port utilisé par Vite
 EXPOSE 5173
 
-CMD ["npm", "run", "dev"]
+# Définit l'entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
+
