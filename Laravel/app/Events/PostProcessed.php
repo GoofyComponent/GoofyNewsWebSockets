@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -27,6 +28,7 @@ class PostProcessed implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
+        Log::info('Broadcasting post processed event...');
         return [
             new Channel('post-processed'),
         ];
