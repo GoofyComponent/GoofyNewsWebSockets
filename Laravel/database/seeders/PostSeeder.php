@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Events\PostProcessed;
 use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
@@ -18,5 +19,8 @@ class PostSeeder extends Seeder
         Post::factory(10)
             ->for(User::inRandomOrder()->first())
             ->create();
+
+        PostProcessed::dispatch();
+        event(new PostProcessed());
     }
 }

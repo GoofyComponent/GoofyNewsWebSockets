@@ -9,6 +9,8 @@ services:
             IGNITION_LOCAL_SITES_PATH: "${PWD:-/var/www/html}"
         volumes:
             - "./Laravel/:/var/www/html"
+        ports:
+          - "8080:8080"
         networks:
             - sail
         depends_on:
