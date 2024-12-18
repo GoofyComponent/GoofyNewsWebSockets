@@ -11,7 +11,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // Route pour émettre les statistiques
-Route::get('/emit-stats', [PostStatsController::class, 'emitStats']);
+// Route::get('/emit-stats', [PostStatsController::class, 'emitStats']);
 
-// Route pour incrémenter les vues d'un post spécifique
-Route::post('/posts/{post}/increment-views', [PostStatsController::class, 'incrementViews']);
+// // Route pour incrémenter les vues d'un post spécifique
+// Route::post('/posts/{post}/increment-views', [PostStatsController::class, 'incrementViews']);
