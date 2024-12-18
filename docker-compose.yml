@@ -11,8 +11,6 @@ services:
             - "./Laravel/:/var/www/html"
         networks:
             - sail
-        ports:
-          - "8080:8080"
         depends_on:
             - mariadb
             # - redis
