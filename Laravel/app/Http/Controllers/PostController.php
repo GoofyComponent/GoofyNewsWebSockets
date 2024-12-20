@@ -12,8 +12,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        // Récupérer les posts avec une pagination de 10 par page
-        $posts = Post::paginate(10);
+        $posts = Post::with('user')->paginate(10);
 
         // Retourner la liste paginée des posts
         return response()->json($posts);

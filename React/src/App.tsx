@@ -14,7 +14,7 @@ function App() {
   };
 
   const sortedByDate = (a: Article, b: Article) =>
-    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
 
   return (
     <main>
@@ -27,7 +27,7 @@ function App() {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
             {data.sort(sortedByDate).map((article, index) => (
               <CardArticle
-                key={'article-' + article.author + index}
+                key={'article-' + article.user.name + index}
                 article={article}
               />
             ))}
