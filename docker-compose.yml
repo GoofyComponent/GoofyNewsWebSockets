@@ -9,11 +9,13 @@ services:
             IGNITION_LOCAL_SITES_PATH: "${PWD:-/var/www/html}"
         volumes:
             - "./Laravel/:/var/www/html"
+        ports:
+          - "8080:8080"
         networks:
             - sail
         depends_on:
             - mariadb
-            # - redis
+            - redis
     nginx-server:
         image: jkaninda/nginx-fpm:alpine
         container_name: nginx-server
@@ -69,12 +71,29 @@ services:
             - mariadb
         networks:
             - sail
-        
+    redis:
+        container_name: "redis"
+        image: "redis:alpine"
+        ports:
+            - "${FORWARD_REDIS_PORT:-6379}:6379"
+        volumes:
+            - "sail-redis:/data"
+        networks:
+            - sail
+        healthcheck:
+            test:
+                - CMD
+                - redis-cli
+                - ping
+            retries: 3
+            timeout: 5s   
 networks:
     sail:
         driver: bridge
 
 volumes:
     sail-mariadb:
+        driver: local
+    sail-redis:
         driver: local
     
