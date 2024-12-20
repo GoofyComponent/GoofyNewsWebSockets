@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class PostFactory extends Factory
             'image' => $this->faker->imageUrl(),
             'slug' => $this->faker->slug,
             'is_published' => $this->faker->boolean,
-            'published_at' => $this->faker->dateTime,
+            'published_at' => Carbon::now(),
             'views' => $this->faker->numberBetween(0, 1000),
             'last_viewed_at' => $this->faker->dateTime,
         ];

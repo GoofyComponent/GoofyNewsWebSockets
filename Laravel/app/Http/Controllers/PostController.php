@@ -13,7 +13,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::with('user')
-            ->orderBy('created_at', direction: 'desc')
+            ->orderBy('published_at', direction: 'desc')
             ->paginate(10);
 
         // Retourner la liste paginée des posts
