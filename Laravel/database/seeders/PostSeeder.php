@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Events\PostProcessed;
 use App\Models\Post;
 use App\Models\User;
-use App\Events\PostProcessed;
 use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
@@ -21,6 +21,6 @@ class PostSeeder extends Seeder
             ->create();
 
         PostProcessed::dispatch();
-        event(new PostProcessed());
+        event(new PostProcessed);
     }
 }
