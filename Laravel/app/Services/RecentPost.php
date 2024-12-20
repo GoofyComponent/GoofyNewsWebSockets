@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use Carbon\Carbon;
+use App\Events\PostProcessed;
 use App\Models\Post;
 use App\Models\User;
-use App\Events\PostProcessed;
+use Carbon\Carbon;
 use jcobhams\NewsApi\NewsApi;
 
 class RecentPost
@@ -19,14 +19,14 @@ class RecentPost
 
     public function __invoke()
     {
-        $all_articles = $this->newsapi->getEverything("Apple");
+        $all_articles = $this->newsapi->getEverything('Apple');
         $created = false;
 
         foreach ($all_articles->articles as $article) {
             // Vérifier si le titre est unique dans la base de données
             $existingPost = Post::where('title', $article->title)->first();
 
-            if (!$existingPost) {
+            if (! $existingPost) {
                 // Créer un nouveau post seulement si le titre est unique
                 $publishedAt = isset($article->publishedAt)
                     ? Carbon::parse($article->publishedAt)->toDateTimeString()
@@ -48,7 +48,7 @@ class RecentPost
             }
         }
 
-        if (!$created) {
+        if (! $created) {
             // Si aucun article n'a été créé, en créer entre 1 et 5 de manière aléatoire avec les factories
             $randomCount = rand(1, 5);
             Post::factory()

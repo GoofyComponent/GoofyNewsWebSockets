@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\PostResource\Pages;
 
-use Filament\Actions;
-use App\Filament\Widgets\PostStats;
 use App\Filament\Resources\PostResource;
+use App\Filament\Widgets\PostStats;
+use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListPosts extends ListRecords

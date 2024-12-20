@@ -3,10 +3,8 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Post;
-use Filament\Widgets\ChartWidget;
-use Illuminate\Support\Facades\Log;
-use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
+use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class PostStats extends BaseWidget
 {
