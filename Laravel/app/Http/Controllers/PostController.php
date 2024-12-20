@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
-use App\Events\PostProcessed;
 
-class TestController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        PostProcessed::dispatch();
+        // Récupérer les posts avec une pagination de 10 par page
+        $posts = Post::paginate(10);
+
+        // Retourner la liste paginée des posts
+        return response()->json($posts);
     }
 
     /**
@@ -20,7 +24,7 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Implémentation ignorée
     }
 
     /**
@@ -28,7 +32,7 @@ class TestController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Implémentation ignorée
     }
 
     /**
@@ -36,7 +40,7 @@ class TestController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Implémentation ignorée
     }
 
     /**
@@ -44,6 +48,6 @@ class TestController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Implémentation ignorée
     }
 }

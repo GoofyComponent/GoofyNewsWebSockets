@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
+
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
 
     // user
     public function user()
