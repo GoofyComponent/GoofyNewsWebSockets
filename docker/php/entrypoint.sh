@@ -116,8 +116,37 @@ else
     info "If you want to add a custom php.ini file, you add it in /var/www/html/conf/php/php.ini"
 fi
 
+
+# Create the storage folder if it does not exist
+if [ ! -d /var/www/html/storage ]; then
+    info "Storage folder not found, creating storage folder..."
+    mkdir -p /var/www/html/storage
+    info "Storage folder created"
+else
+    info "Storage folder already exists"
+fi
+
+# Create the logs folder if it does not exist
+if [ ! -d /var/www/html/storage/logs ]; then
+    info "Logs folder not found, creating logs folder..."
+    mkdir -p /var/www/html/storage/logs
+    info "Logs folder created"
+else
+    info "Logs folder already exists"
+fi
+
+# Create the laravel.log file if it does not exist
+if [ ! -f /var/www/html/storage/logs/laravel.log ]; then
+    info "laravel.log file not found, creating laravel.log file..."
+    touch /var/www/html/storage/logs/laravel.log
+    info "laravel.log file created"
+else
+    info "laravel.log file already exists"
+fi
+
 # every rights to the storage folder
 chmod -R 777 /var/www/html/storage/logs/laravel.log
+
 
 info "Waiting for database connection to be ready..."
 
