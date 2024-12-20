@@ -5,16 +5,16 @@ import { getReadingTime } from '../utils/string';
 import { IconEye } from './Icons';
 
 const CardArticle = ({ article }: { article: Article }) => {
-  const { author, content, title, urlToImage, source, publishedAt, views } =
+  const { user, content, title, image, published_at, views } =
     article;
 
   return (
     <div className='border relative overflow-hidden rounded-lg'>
       <div className='w-full aspect-video'>
-        {urlToImage ? (
+        {image ? (
           <img
             className='object-cover w-full h-full '
-            src={urlToImage}
+            src={image}
             alt={title}
           />
         ) : (
@@ -30,9 +30,6 @@ const CardArticle = ({ article }: { article: Article }) => {
       </div>
       <div className='p-4 flex flex-col gap-4'>
         <div className='flex items-center justify-between gap-4'>
-          <p className='text-sm uppercase tracking-wide font-medium text-black/50'>
-            {source.name}
-          </p>
           <div className='flex items-center gap-2'>
             <p>
               {views
@@ -50,17 +47,17 @@ const CardArticle = ({ article }: { article: Article }) => {
           <div
             className='uppercase text-xs rounded-full w-6 h-6 flex items-center justify-center text-white shrink-0'
             style={{
-              backgroundColor: author
-                ? getColorFromLetter(author[0])
+              backgroundColor: user.name
+                ? getColorFromLetter(user.name[0])
                 : '#00000050',
             }}
           >
-            <p>{author ? author[0] : 'N/A'}</p>
+            <p>{user.name ? user.name[0] : 'N/A'}</p>
           </div>
           <p className='text-ellipsis overflow-hidden whitespace-nowrap'>
-            {author}
+            {user.name}
           </p>
-          <p className='text-black/50 whitespace-nowrap text-sm'>- {getTimeAgo(publishedAt)}</p>
+          <p className='text-black/50 whitespace-nowrap text-sm'>- {getTimeAgo(published_at)}</p>
         </div>
       </div>
     </div>
